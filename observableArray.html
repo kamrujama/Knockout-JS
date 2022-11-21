@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Obs Array</title>
+  </head>
+  <body style="text-align: center">
+    <h2>Observable Array</h2>
+
+    <form data-bind="submit : addItems">
+        <label>Add New Item : </label>
+        <input type="text" data-bind = "value : itemsToAdd, valueUpdate : 'afterkeydown'">
+        <input type="submit" data-bind="enable : itemsToAdd().length > 0" value="Add Items">
+        <p>Items Added</p>
+        <select multiple width="100px" data-bind="options:items"></select>
+    </form>
+
+    <script
+      src="    https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.5.0.js"
+      type="text/javascript"
+    ></script>
+
+    <script>
+      let listItems = function(items){
+        this.items = ko.observableArray(items)
+        this.itemsToAdd = ko.observable("")
+        this.addItems = function(){
+            if(this.itemsToAdd() != ""){
+                this.items.push(this.itemsToAdd())
+                this.itemsToAdd("")
+            }
+        }.bind(this)
+      }
+
+      ko.applyBindings(new listItems(["Ravi","Tushar"]))
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Observable</title>
+</head>
+<body>
+    
+    <label for="">First Name : </label>
+    <input type="text" data-bind="value : firstName, valueUpdate : 'afterkeydown'" placeholder="Enter your first name">
+    <label for="">Last Name : </label>
+    <input type="text" data-bind="value : lastName, valueUpdate : 'afterkeydown'" placeholder="Enter your last name">
+    <hr>
+    First Name : <h2 data-bind="text:firstName"></h2>
+    Last Name : <h2 data-bind="text:lastName"></h2>
+    Full Name : <h3 data-bind="text : fullName"></h3>
+    <hr>
+    <h2>Observable Array</h2>
+    <hr>
+    <ol data-bind="foreach : places">
+        <li data-bind="text : name"></li>
+    </ol>
+    <hr>
+    <button data-bind="click : push">Push</button>
+    <button data-bind="click : ">Pop</button>
+    <button data-bind="click : ">Unshift</button>
+    <button data-bind="click : ">Shift</button>
+    <button data-bind="click : ">Reverse</button>
+    <button data-bind="click : ">Sort</button>
+    <button data-bind="click : ">Splice</button>
+    <button data-bind="click : ">IndexOf</button>
+    <button data-bind="click : ">Slice</button>
+    <button data-bind="click : ">Remove All</button>
+    <button data-bind="click : ">Remove</button>
+    <button data-bind="click : ">Remove()</button>
+    <button data-bind="click : ">Remove([])</button>
+    <button data-bind="click : ">Destroy</button>
+    <button data-bind="click : ">Destroy All</button>
+    <button data-bind="click : ">Destroy()</button>
+    <button data-bind="click : ">Destroy([])</button>
+
+    <hr>
+    
+
+    <script src="Knockout-CDN/knockout-3.5.1.js"></script>
+    <script>
+        function AppViewModel(){
+            var self = this
+            self.firstName = ko.observable(" ") 
+            self.lastName = ko.observable(" ")
+            self.fullName = ko.computed(function(){
+                return self.firstName()+ " + " +self.lastName()
+            })
+            self.places = ko.observableArray([
+                {name : "Pokhara"},
+                {name : "Manakalu"},
+                {name : "Darjling"},
+                {name : "Mirmir"},
+                {name : "Sephoksundo"}
+            ])
+            // self.push = function(){
+            // self.places.push({name : self.firstName()})
+        // }
+        }
+
+        var obj = new AppViewModel()
+        obj.push = function(){
+            obj.places.push({name : obj.firstName()})
+        }
+        // ko.applyBindings(new AppViewModel);
+        ko.applyBindings(obj);
+    </script>
+</body>
+</html>

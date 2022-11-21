@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knocout JS</title>
+
+</head>
+<body>
+    
+    <span>Username</span><input type="text" data-bind="value:userName ">
+    <hr>
+    <h2>Your Name : <span data-bind="text:userName"></span></h2>
+
+    <script src="Knockout-CDN/knockout-3.5.1.js"></script>
+    <script>
+        var obj = function(){
+            var self = this
+            self.userName = ko.observable("Enter Your Name");
+            console.log(self.userName)
+        }
+        
+        ko.applyBindings(new obj)
+    </script>
+</body>
+</html>

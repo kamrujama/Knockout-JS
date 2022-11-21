@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Knockout JS</title>
+    <style>
+      ul {
+        list-style-type: decimal;
+      }
+      li {
+        margin-bottom: 10px;
+      }
+      span {
+        margin-bottom: 5px;
+        border-bottom: 2px dashed red;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- View Model -->
+    <label for="">Enter Details : </label><br />
+    <input
+      type="text"
+      data-bind="value : obj.firstName"
+      placeholder="Enter Name"
+    /><br />
+    <input
+      type="text"
+      data-bind="value : obj.address"
+      placeholder="Enter Address"
+    /><br />
+    <input
+      type="text"
+      data-bind="value : obj.age"
+      placeholder="Enter Age"
+    /><br />
+    <input
+      type="text"
+      data-bind="value : obj.education"
+      placeholder="Enter Educ.."
+    />
+    <hr />
+
+    Name : <span data-bind="text : firstName"></span><br />
+
+    Address : <span data-bind="text : address"></span><br />
+
+    Age : <span data-bind="text : age"></span> <br />
+    Education :
+    <span data-bind="text : education"></span> <br />
+    Computed Demo :
+    <span data-bind="text : obj.fullName"></span>
+    <!-- End of View Model -->
+    <hr />
+    <!-- Working with loops and array in Knockout js -->
+    <span data-bind="text : message"></span>
+    <hr />
+    <ul data-bind="foreach:firends">
+      <li>
+        <span data-bind="text:name"></span>
+        <input
+          type="checkbox"
+          data-bind="checked : knowJS"
+        />
+        <button data-bind="click : removeFriends">Remove</button>
+        <input
+          type="text"
+          data-bind="visible : knowJS, value: favLanguage"
+        />
+        <span data-bind="visible:knowJS, text:favLanguage"></span>
+      </li>
+    </ul>
+
+    <hr />
+    <input
+      type="text"
+      data-bind="value : newFriend"
+    />
+    <button data-bind="click : addFriends">Add Friends</button>
+
+    <hr />
+    <p>Working with checkbox</p>
+    <hr />
+
+    <!-- <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"
+      type="text/javascript"
+    ></script> -->
+    <script
+      src="    https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.5.0.js"
+      type="text/javascript"
+    ></script>
+    <script>
+      function Fav(favLang) {
+        this.favLang = favLang
+      }
+      function Friends(name) {
+        ;(this.name = name),
+          (this.knowJS = ko.observable(false)),
+          (this.favLanguage = ko.observable('Default')),
+          (this.removeFriends = function () {
+            obj.firends.remove(this)
+          })
+      }
+
+      var obj = {
+        firstName: ko.observable('Kamrujama Ansari'),
+        address: ko.observable('Nepal'),
+        education: ko.observable('B.E'),
+        age: ko.observable(24),
+        newFriend: ko.observable(''),
+        newLang: ko.observable(''),
+        message: 'Demo of Observable Array using Foreach Loop : ',
+        lang: ko.observableArray([
+          new Fav('Ravi'),
+          new Fav('Tushar'),
+          new Fav('Aakib'),
+          new Fav('Bikash'),
+        ]),
+        firends: ko.observableArray([
+          new Friends('Ravi'),
+          new Friends('Tushar'),
+          new Friends('Aakib'),
+          new Friends('Bikash'),
+        ]),
+      }
+
+      ;(obj.addFriends = () => obj.firends.push(new Friends(obj.newFriend))),
+        (obj.addLang = () =>
+          obj.lang.push(new Fav(obj.newLang))(
+            (obj.fullName = ko.computed(() => {
+              return (
+                'Hello Mr. ' +
+                obj.firstName() +
+                ' and your Education is : ' +
+                obj.education()
+              )
+            }))
+          ))
+
+      //   obj.fullName = ko.subscribe(() => {
+      //     return (
+      //       'Hello Mr. ' +
+      //       obj.name() +
+      //       ' and your Education is : ' +
+      //       obj.education()
+      //     )
+      //   })
+
+      ko.applyBindings(obj)
+      //   ko.applyBindings(hello)
+    </script>
+    <script src="app.js"></script>
+
+    <!-- <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js"
+      integrity="sha512-2AL/VEauKkZqQU9BHgnv48OhXcJPx9vdzxN1JrKDVc4FPU/MEE/BZ6d9l0mP7VmvLsjtYwqiYQpDskK9dG8KBA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script> -->
+  </body>
+</html>
